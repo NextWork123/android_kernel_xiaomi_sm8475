@@ -537,6 +537,7 @@ KBUILD_LDFLAGS :=
 CLANG_FLAGS :=
 # For use when analysis needs to call subshell with CC before cc-wrapper is built.
 NO_WRAPPER_CC := $(CC)
+TARGET_BUILD_VARIANT := user
 
 CC := scripts/basic/cc-wrapper $(CC)
 
@@ -554,6 +555,7 @@ export KBUILD_AFLAGS_MODULE KBUILD_CFLAGS_MODULE KBUILD_LDFLAGS_MODULE
 export KBUILD_AFLAGS_KERNEL KBUILD_CFLAGS_KERNEL
 export PAHOLE_FLAGS
 export NO_WRAPPER_CC
+export TARGET_BUILD_VARIANT
 
 # Files to ignore in find ... statements
 
