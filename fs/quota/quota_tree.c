@@ -355,7 +355,10 @@ static int do_insert_tree(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 	int ret = 0, newson = 0, newact = 0;
 	__le32 *ref;
 	uint newblk;
-	GETDQBUF(info->dqi_usable_bs);
+	void *buf = kmalloc(info->dqi_usable_bs, GFP_KERNEL);
+	if (!buf) {
+		return -ENOMEM;
+	}
 
 	if (!*treeblk) {
 		ret = get_free_dqblk(info);
@@ -399,7 +402,7 @@ static int do_insert_tree(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 		put_free_dqblk(info, buf, *treeblk);
 	}
 out_buf:
-	FREEDQBUF();
+	kfree(buf);
 	return ret;
 }
 
@@ -464,8 +467,10 @@ static int free_dqentry(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 {
 	struct qt_disk_dqdbheader *dh;
 	int ret = 0;
-	GETDQBUF(info->dqi_usable_bs);
-
+	void *buf = kmalloc(info->dqi_usable_bs, GFP_KERNEL);
+	if (!buf) {
+		return -ENOMEM;
+	}
 	if (dquot->dq_off >> info->dqi_blocksize_bits != blk) {
 		quota_error(dquot->dq_sb, "Quota structure has offset to "
 			"other block (%u) than it should (%u)", blk,
@@ -517,7 +522,7 @@ static int free_dqentry(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 	}
 	dquot->dq_off = 0;	/* Quota is now unattached */
 out_buf:
-	FREEDQBUF();
+	kfree(buf);
 	return ret;
 }
 
@@ -528,7 +533,10 @@ static int remove_tree(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 	int ret = 0;
 	uint newblk;
 	__le32 *ref;
-	GETDQBUF(info->dqi_usable_bs);
+	void *buf = kmalloc(info->dqi_usable_bs, GFP_KERNEL);
+	if (!buf) {
+		return -ENOMEM;
+	}
 	ref = (__le32 *)buf;
 
 	ret = read_blk(info, *blk, buf);
@@ -571,7 +579,7 @@ static int remove_tree(struct qtree_mem_dqinfo *info, struct dquot *dquot,
 		}
 	}
 out_buf:
-	FREEDQBUF();
+	kfree(buf);
 	return ret;
 }
 
@@ -628,7 +636,10 @@ static loff_t find_tree_dqentry(struct qtree_mem_dqinfo *info,
 {
 	loff_t ret = 0;
 	__le32 *ref;
-	GETDQBUF(info->dqi_usable_bs);
+	void *buf = kmalloc(info->dqi_usable_bs, GFP_KERNEL);
+	if (!buf) {
+		return -ENOMEM;
+	}
 	ref = (__le32 *)buf;
 
 	ret = read_blk(info, blk, buf);
@@ -653,7 +664,7 @@ static loff_t find_tree_dqentry(struct qtree_mem_dqinfo *info,
 	else
 		ret = find_block_dqentry(info, dquot, blk);
 out_buf:
-	FREEDQBUF();
+	kfree(buf);
 	return ret;
 }
 
