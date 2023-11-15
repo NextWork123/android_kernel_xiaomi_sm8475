@@ -1,1 +1,1 @@
-obj-y := dsp/ ipc/ soc/ asoc/ asoc/codecs/
+obj-y := dsp/ ipc/ soc/ asoc/
