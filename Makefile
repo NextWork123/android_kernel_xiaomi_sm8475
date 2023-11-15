@@ -463,13 +463,13 @@ READELF		= llvm-readelf
 STRIP		= llvm-strip
 else
 CC		= $(CROSS_COMPILE)gcc
-LD		= $(CROSS_COMPILE)ld
-AR		= $(CROSS_COMPILE)ar
-NM		= $(CROSS_COMPILE)nm
-OBJCOPY		= $(CROSS_COMPILE)objcopy
-OBJDUMP		= $(CROSS_COMPILE)objdump
+LD		= ld.lld
+AR		= llvm-ar
+NM		= llvm-nm
+OBJCOPY		= llvm-objcopy
+OBJDUMP		= llvm-objdump
 READELF		= $(CROSS_COMPILE)readelf
-STRIP		= $(CROSS_COMPILE)strip
+STRIP		= llvm-strip
 endif
 PAHOLE		= pahole
 RESOLVE_BTFIDS	= $(objtree)/tools/bpf/resolve_btfids/resolve_btfids
