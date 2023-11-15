@@ -792,6 +792,20 @@ else ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS += -Os
 endif
 
+ifdef CONFIG_LLVM_POLLY
+POLLY_FLAGS	:= -mllvm -polly \
+		   -mllvm -polly-run-dce \
+		   -mllvm -polly-run-inliner \
+		   -mllvm -polly-opt-fusion-max \
+		   -mllvm -polly-ast-use-context \
+		   -mllvm -polly-detect-keep-going \
+		   -mllvm -polly-vectorizer=stripmine \
+		   -mllvm -polly-invariant-load-hoisting
+
+KBUILD_CFLAGS += $(POLLY_FLAGS)
+KBUILD_LDFLAGS += $(POLLY_FLAGS)
+endif
+
 ifeq ($(ld-name),lld)
 LDFLAGS += -O3
 endif
