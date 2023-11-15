@@ -799,6 +799,10 @@ POLLY_FLAGS	:= -mllvm -polly \
 		   -mllvm -polly-loopfusion-greedy=1 \
 		   -mllvm -polly-reschedule=1 \
 		   -mllvm -polly-postopts=1 \
+		   -mllvm -polly-num-threads=0 \
+	       -mllvm -polly-omp-backend=LLVM \
+		   -mllvm -polly-scheduling=dynamic \
+		   -mllvm -polly-scheduling-chunksize=1 \
 		   -mllvm -polly-ast-use-context \
 		   -mllvm -polly-detect-keep-going \
 		   -mllvm -polly-vectorizer=stripmine \
