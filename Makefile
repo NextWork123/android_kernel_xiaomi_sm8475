@@ -809,6 +809,7 @@ POLLY_FLAGS	:= -mllvm -polly \
 		   -mllvm -polly-invariant-load-hoisting
 
 KBUILD_CFLAGS += $(POLLY_FLAGS)
+KBUILD_AFLAGS += $(POLLY_FLAGS)
 KBUILD_LDFLAGS += $(POLLY_FLAGS)
 endif
 
