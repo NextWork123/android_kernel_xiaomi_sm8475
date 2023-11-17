@@ -1141,3 +1141,6 @@ CONFIG_TOOLS_SUPPORT_RELR=Y
 
 # Enable Power Efficient
 CONFIG_WQ_POWER_EFFICIENT_DEFAULT=y
+
+# Enable Capacity Aware Superset Scheduler
+CONFIG_SCHED_CASS=Y
