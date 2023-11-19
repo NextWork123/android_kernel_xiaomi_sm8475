@@ -1147,3 +1147,6 @@ CONFIG_WQ_POWER_EFFICIENT_DEFAULT=y
 
 # Enable Capacity Aware Superset Scheduler
 CONFIG_SCHED_CASS=y
+
+# Enable Boeffla Wakelock Blocker
+CONFIG_BOEFFLA_WL_BLOCKER=y
